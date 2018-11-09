@@ -1,0 +1,31 @@
+{
+  "name": "frontcamp-mentoring",
+  "version": "1.0.0",
+  "description": "FrontCamp Mentoring",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "gulp build",
+    "build:prod": "gulp build --env=prod",
+    "watch": "gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dzmitrybek/frontcamp-mentoring.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dzmitrybek/frontcamp-mentoring/issues"
+  },
+  "homepage": "https://github.com/dzmitrybek/frontcamp-mentoring#readme",
+  "devDependencies": {
+    "@babel/core": "^7.1.5",
+    "@babel/preset-env": "^7.1.5",
+    "babelify": "^10.0.0",
+    "browserify": "^16.2.3",
+    "gulp": "^4.0.0",
+    "vinyl-source-stream": "^2.0.0",
+    "yargs": "^12.0.2"
+  }
+}
