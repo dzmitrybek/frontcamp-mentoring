@@ -1,0 +1,4 @@
+.main {
+    min-height: calc(100% - 40px);
+    padding: 120px 0;
+}

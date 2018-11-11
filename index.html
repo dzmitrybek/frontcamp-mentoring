@@ -1,14 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="assets/semantic/dist/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+    <script src="assets/semantic/dist/semantic.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
 </head>
-<body>
-    Init
 
+<body>
+    <header class="ui fixed inverted menu">
+        <div class="ui container">
+            <a href="#" class="header item">
+                Front Camp News
+            </a>
+        </div>
+    </header>
+    <main class="ui main text container" id="app-content">
+        <div class="ui link cards">
+            <div class="card">
+                <div class="image">
+                    <img src="https://ichef.bbci.co.uk/news/1024/branded_news/3B5A/production/_104249151_mediaitem104249150.jpg">
+                </div>
+                <div class="content">
+                    <div class="header">California wildfire advances on Malibu</div>
+                    <div class="meta">
+                        <a>"BBC News"</a>
+                    </div>
+                    <div class="description">
+                        Thousands are evacuated as blazes near Los Angeles and Sacramento are fanned by strong winds.
+                    </div>
+                </div>
+                <div class="extra content">
+                    <span class="right floated">
+                        2018-11-09T16:20:12Z
+                    </span>
+                    <span>
+                        <a href="http://www.bbc.co.uk/news/world-us-canada-46155767">
+                            <button class="ui right labeled icon button">
+                                    Read More
+                                    <i class="right chevron icon"></i>
+                            </button>
+                        </a>
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="ui inverted vertical footer segment">
+        <div class="ui center aligned container">
+            <a href="https://newsapi.org/"><i class="linkify icon"></i> Data provided by the News API service</a>
+        </div>
+    </footer>
     <script src="./public/index.js"></script>
 </body>
+
 </html>

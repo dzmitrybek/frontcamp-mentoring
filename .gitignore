@@ -1,2 +1,7 @@
 node_modules
-public
+assets/semantic/gulpfile.js
+assets/semantic/src
+assets/semantic/tasks
+assets/semantic/dist/*
+!assets/semantic/dist/semantic.min.css
+!assets/semantic/dist/semantic.min.js

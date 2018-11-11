@@ -12,7 +12,8 @@ const environment = argv.env || ENV.DEVELEPMENT;
 gulp.task('build', function () {
     return browserify({
         entries: './src/app.js',
-        debug: environment === ENV.DEVELEPMENT
+        debug: environment === ENV.DEVELEPMENT,
+        paths: ['./src']
     })
         .transform("babelify", { presets: ["@babel/preset-env"] })
         .bundle()
@@ -21,5 +22,5 @@ gulp.task('build', function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch('./src/*.js', gulp.series('build'));
+    gulp.watch('./src/**/*.js', ['build']);
 });
