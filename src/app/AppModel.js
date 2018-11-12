@@ -1,4 +1,4 @@
-import { CONSTANTS } from 'constants.js'
+import { CONSTANTS } from 'constants.js';
 
 export default class AppModel {
     constructor() {
@@ -6,12 +6,12 @@ export default class AppModel {
         this.appContentElement = document.querySelector('#app-content');
     }
 
-    getNews() {
-        return this.news.lenght ? this.news : this.loadNews();
+    getNews(query) {
+        return this.news.lenght ? this.news : this.loadNews(query);
     }
 
-    loadNews() {
-        return fetch(CONSTANTS.NEWS_URL)
+    loadNews(query) {
+        return fetch(query ? CONSTANTS.GET_QUERY_NEWS_URL(query) : CONSTANTS.DEFAULT_NEWS_URL)
             .then((response) => response.json())
             .then((data) => this.news = data.articles)
     }

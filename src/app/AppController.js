@@ -5,15 +5,24 @@ export default class AppController {
 
     init() {
         this.loadData();
+        this.view.onSearchNews((query) => this.loadData(query));
+        this.view.onRefreshNews(() => this.loadData());
     }
 
-    loadData() {
-        this.model.getNews()
-            .then((data) => {
-                this.view.render(data);
+    loadData(query) {
+        this.view.manageLoader(true);
+        this.model.getNews(query)
+            .then((data = []) => {
+                if (data.length) {
+                    this.view.renderNews(data);
+                } else {
+                    this.view.renderEmptyResult();
+                }
             })
             .catch((error) => {
-                this.view.render(error);
+                this.view.renderErrorMessage();
+                throw new Error(error);
             })
+            .finally(() => this.view.manageLoader(false));
     }
 }
