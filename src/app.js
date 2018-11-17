@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+
 import AppController from 'app/AppController';
 import AppView from 'app/AppView';
 import AppModel from 'app/AppModel';
