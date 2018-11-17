@@ -1,4 +1,5 @@
 import 'babel-polyfill';
+import 'whatwg-fetch';
 
 import AppController from 'app/AppController';
 import AppView from 'app/AppView';
