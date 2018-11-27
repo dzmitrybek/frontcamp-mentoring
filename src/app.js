@@ -1,9 +1,8 @@
-import 'babel-polyfill';
-import 'whatwg-fetch';
+import 'root/assets/style.scss'
 
-import AppController from 'app/AppController';
-import AppView from 'app/AppView';
-import AppModel from 'app/AppModel';
+import AppController from 'root/src/app/AppController';
+import AppView from 'root/src/app/AppView';
+import AppModel from 'root/src/app/AppModel';
 
 const appView = new AppView();
 const appModel = new AppModel();
