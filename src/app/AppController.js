@@ -9,20 +9,20 @@ export default class AppController {
         this.view.onRefreshNews(() => this.loadData());
     }
 
-    loadData(query) {
+    async loadData(query) {
         this.view.manageLoader(true);
-        this.model.getNews(query)
-            .then((data = []) => {
-                if (data.length) {
-                    this.view.renderNews(data);
-                } else {
-                    this.view.renderEmptyResult();
-                }
-            })
-            .catch((error) => {
-                this.view.renderErrorMessage();
-                throw new Error(error);
-            })
-            .finally(() => this.view.manageLoader(false));
+        try {
+            const data = await this.model.getNews(query) || [];
+            if (data.length) {
+                this.view.renderNews(data);
+            } else {
+                this.view.renderEmptyResult();
+            }
+        } catch (error) {
+            this.view.renderErrorMessage();
+            throw new Error(error);
+        } finally {
+            this.view.manageLoader(false)
+        }
     }
 }

@@ -1,4 +1,4 @@
-import { CONSTANTS } from 'constants.js';
+import { CONSTANTS } from 'root/src/constants.js';
 
 export default class AppView {
     constructor() {
