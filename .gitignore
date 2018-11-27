@@ -6,4 +6,4 @@ assets/semantic/dist/*
 !assets/semantic/dist/semantic.min.css
 !assets/semantic/dist/semantic.min.js
 
-public
+# public
