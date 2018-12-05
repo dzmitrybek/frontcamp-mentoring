@@ -1,4 +1,4 @@
-export default class AppController {
+export default class AppPresenter {
     constructor(...args) {
         [this.view, this.model] = args;
     }
