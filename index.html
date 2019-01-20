@@ -15,9 +15,12 @@
 <body>
     <header class="ui fixed inverted menu">
         <div class="ui container">
-            <a href="#" class="header item">
+            <a href="#main" class="header item" id="main-page-btn">
                 <i class="newspaper outline icon"></i>
                 Front Camp News
+            </a>
+            <a href="#my-news" class="header item" id="my-news-page-btn">
+                My News
             </a>
             <div class="header-right-block">
                 <a href="#" class="item" id="refresh-btn">
@@ -28,10 +31,14 @@
         </div>
     </header>
     <main class="content-wrapper">
-        <div class="ui icon input search-input">
+        <div class="ui icon input search-input" id="search-bar">
             <input type="text" placeholder="Search..." id="search-field">
             <i class="circular search link icon" id="search-btn"></i>
         </div>
+        <button class="ui basic button add-news-btn hidden" id="add-news-btn">
+            <i class="icon plus"></i>
+            Add News
+        </button>
         <h1 class="news-header"></h1>
         <div class="content-area" id="app-content">
         </div>

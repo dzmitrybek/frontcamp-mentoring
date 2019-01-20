@@ -54,3 +54,28 @@
 #app-loader {
     position: fixed;
 }
+
+.hidden {
+    display: none !important;
+}
+
+.add-news-btn {
+    align-self: flex-end;
+}
+
+.edit-form {
+    padding: 16px 32px;
+    width: 100%;
+}
+
+.form-content-wrapper {
+    width: 50%;
+}
+
+#app-content .news-card-header {
+    display: flex;
+    align-items: flex-start;
+}
+#app-content .news-card-header > span {
+    margin-right: auto;
+}
