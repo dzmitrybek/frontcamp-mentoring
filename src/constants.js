@@ -19,7 +19,15 @@ export const CONSTANTS = {
     get LOGIN_URL() {
         return `${this.BASE_URL}/api/login`;
     },
+    get LOGOUT_URL() {
+        return `${this.BASE_URL}/api/logout`;
+    },
     get REGISTRATION_URL() {
         return `${this.BASE_URL}/api/registration`;
+    },
+    HTTP_STATUSES: {
+        OK: 200,
+        UNAUTHORIZED: 401,
+        NOT_FOUND: 404
     }
 }

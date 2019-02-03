@@ -9,7 +9,7 @@ passport.use(new Strategy(
         User.findOne({ username })
             .then((user) => {
                 if (!user || password !== user.password) {
-                    return done(null, false, { message: 'Incorrect username or password.' });
+                    return done(null, false);
                 }
                 done(null, user)
             })
@@ -32,7 +32,7 @@ router.route('/api/login')
     .post(
         passport.authenticate('local'),
         (req, res) => {
-            res.sendStatus(200);
+            res.status(200).json({userName: req.user.username});
         }
     );
 

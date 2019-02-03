@@ -14,8 +14,12 @@ export default class AppModel {
     async getMyNews() {
         const response = await fetch(CONSTANTS.MY_NEWS_URL);
         const data = await response.json();
-        this.myNewsDataSet = data;
-        return data;
+        this.myNewsDataSet = data.map((item) => {
+            item.id = item._id;
+            delete item._id;
+            return item;
+        });
+        return this.myNewsDataSet;
     }
 
     async login(userData) {
@@ -26,9 +30,18 @@ export default class AppModel {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(userData)
-          });
+        });
+
+        if (response.status === CONSTANTS.HTTP_STATUSES.UNAUTHORIZED) {
+            throw new Error('Incorrect username or password.');
+        }
+
         const data = await response.json();
-        return data;
+        return data.userName;
+    }
+
+    async logout() {
+        await fetch(CONSTANTS.LOGOUT_URL);
     }
 
     async registration(userData) {
@@ -41,7 +54,6 @@ export default class AppModel {
             body: JSON.stringify(userData)
           });
           const data = await response.json();
-          debugger
         return data;
     }
 
@@ -66,6 +78,8 @@ export default class AppModel {
     async updateNewsItem(item) {
         item.source = { name: 'Own News' };
         item.publishedAt = new Date();
+        item._id = item.id;
+        delete item.id;
 
         const response = await fetch(CONSTANTS.MY_NEWS_URL, {
             method: 'PUT',

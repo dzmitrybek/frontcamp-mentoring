@@ -111,6 +111,8 @@ export default class AppView {
                     <label>Password</label>
                     <input type="password" name="password" placeholder="Password">
                 </div>
+                <div class="ui error message" id="login-form-error-block">
+                </div>
                 <button class="ui button" type="button" id="sign-in-btn">Sign In</button>
                 <button class="ui button" type="button" id="registration-btn">Registration</button>
             </form>`;
@@ -124,6 +126,12 @@ export default class AppView {
         this.newsHeader.innerText = this.searchField.value
             ? `"${this.searchField.value.toUpperCase()}" search results:`
             : 'Top News:';
+    }
+
+    renderAuthError(errorText) {
+        const errorBlock = document.querySelector('#login-form-error-block');
+        errorBlock.innerText = errorText;
+        this.loginForm.classList.add('error')
     }
 
     renderHeader(headerName) {
@@ -143,8 +151,18 @@ export default class AppView {
             <h2 class='error message'>${message}</h2>`;
     }
 
-    toogleAddBtn(isDisplay) {
+    toggleAddBtn(isDisplay) {
         this.toggleElemDisplaying(this.addNewsBtn, isDisplay);
+    }
+
+    toggleUserBtn(isDisplay, userName) {
+        this.toggleElemDisplaying(this.userPageBtn, isDisplay);
+        this.userPageBtn.innerText = userName;
+    }
+
+    switchSignBtns(isSignIn) {
+        this.toggleElemDisplaying(this.signOutBtn, !isSignIn);
+        this.toggleElemDisplaying(this.signInPageBtn, isSignIn);
     }
 
     toggleSearchBar(isDisplay) {
@@ -201,7 +219,7 @@ export default class AppView {
         editForm.addEventListener('submit', (event) => {
             event.preventDefault()
             const formData = {
-                id: +editForm.getAttribute('data-id'),
+                id: editForm.getAttribute('data-id'),
                 title: editForm['title'].value,
                 description: editForm['description'].value,
                 urlToImage: editForm['urlToImage'].value,
@@ -242,7 +260,7 @@ export default class AppView {
     onEditNewsItem(callback) {
         this.mainContentArea.addEventListener('click', (event) => {
             if (event.target.getAttribute('data-label') === 'edit-btn') {
-                callback(+event.target.getAttribute('data-id'));
+                callback(event.target.getAttribute('data-id'));
             }
         });
     }
@@ -250,7 +268,7 @@ export default class AppView {
     onDeleteItem(callback) {
         this.mainContentArea.addEventListener('click', (event) => {
             if (event.target.getAttribute('data-label') === 'delete-btn') {
-                callback(+event.target.getAttribute('data-id'));
+                callback(event.target.getAttribute('data-id'));
             }
         });
     }

@@ -11,7 +11,9 @@ export default class AppPresenter {
         this.view.onUserPageBtn(() => this.loadUserPage());
         this.view.onMainPage(() => this.loadMainPage());
         this.view.onSignInPageBtn(() => this.loadLoginPage());
-        this.view.onSignOutBtn(() => this.loadMainPage());
+        this.view.onSignOutBtn(() => {
+            this.logout();
+        });
     }
 
     async loadMainPage(query) {
@@ -19,7 +21,7 @@ export default class AppPresenter {
         try {
             const data = await this.model.getNews(query) || [];
             this.view.toggleSearchBar(true);
-            this.view.toogleAddBtn(false);
+            this.view.toggleAddBtn(false);
             this.view.renderNewsHeader();
             if (data.length) {
                 this.view.renderNews(data);
@@ -37,12 +39,27 @@ export default class AppPresenter {
     loadLoginPage() {
         this.clearPage();
         this.view.renderLoginForm();
-        this.view.onSignInBtn((loginData) => {
-            this.model.login(loginData);
+        this.view.onSignInBtn(async (loginData) => {
+            try {
+                const userName = await this.model.login(loginData);
+                this.view.toggleUserBtn(true, userName);
+                this.loadUserPage();
+                this.view.switchSignBtns(false);
+                this.view.toggle(false);
+            } catch(err) {
+                this.view.renderAuthError(err.message);
+            }
         });
         this.view.onRegistrationBtn((loginData) => {
             this.model.registration(loginData);
         });
+    }
+
+    async logout() {
+        await this.model.logout();
+        this.view.switchSignBtns(true);
+        this.view.toggleUserBtn(false);
+        this.loadMainPage();
     }
 
     async loadUserPage() {
@@ -50,7 +67,7 @@ export default class AppPresenter {
         try {
             const data = await this.model.getMyNews() || [];
             this.view.toggleSearchBar(false);
-            this.view.toogleAddBtn(true);
+            this.view.toggleAddBtn(true);
             this.view.renderHeader('My News:');
 
             if (data.length) {
@@ -61,7 +78,7 @@ export default class AppPresenter {
                 });
                 this.view.onDeleteItem(async (id) => {
                     await this.model.deleteNewsItem(id);
-                    this.loadMyNewsPage();
+                    this.loadUserPage();
                 });
             } else {
                 this.view.renderEmptyResult();
@@ -75,7 +92,7 @@ export default class AppPresenter {
     }
 
     loadEditPage(item, isAdding) {
-        this.view.toogleAddBtn(false);
+        this.view.toggleAddBtn(false);
         this.view.renderHeader(isAdding ? 'Add News:' : 'Edit News');
         this.view.renderEditForm(item);
         this.view.onSubmitEditForm(async (formData) => {
@@ -84,14 +101,14 @@ export default class AppPresenter {
             } else {
                 await this.model.updateNewsItem(formData);
             }
-            this.loadMyNewsPage();
+            this.loadUserPage();
         });
 
     }
 
     clearPage() {
         this.view.toggleSearchBar(false);
-        this.view.toogleAddBtn(false);
+        this.view.toggleAddBtn(false);
         this.view.renderHeader('');
     }
 }
