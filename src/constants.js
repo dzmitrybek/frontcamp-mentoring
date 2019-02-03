@@ -1,6 +1,6 @@
 export const CONSTANTS = {
     API_KEY: '0705e7dcd0114afdb2e897d0635afc29',
-    BASE_URL: window.location.href,
+    BASE_URL: window.location.origin,
     get DEFAULT_NEWS_URL() {
         return `https://newsapi.org/v2/top-headlines?country=us&apiKey=${this.API_KEY}`
     },
@@ -13,4 +13,7 @@ export const CONSTANTS = {
     EMPTY_VALUE: '',
     NO_SEARCH_RESULT_TEXT: 'No Search Results',
     ERROR_TEXT: 'Data Loading Error',
+    get MY_NEWS_URL() {
+        return `${this.BASE_URL}/api/my-news`;
+    }
 }

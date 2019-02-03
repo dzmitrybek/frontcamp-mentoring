@@ -4,8 +4,10 @@
   "description": "FrontCamp Mentoring",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && webpack-dev-server --mode=development",
+    "start": "npm run build && npm run start:server",
+    "start:server": "node src/server/server.js",
     "build": "webpack --mode=development",
+    "watch": "webpack --mode=development --watch",
     "build:prod": "webpack --mode=production"
   },
   "repository": {
@@ -26,17 +28,20 @@
     "css-loader": "^1.0.1",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.4.5",
+    "morgan": "^1.9.1",
     "node-sass": "^4.10.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
     "webpack": "^4.26.1",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10",
+    "webpack-dev-server": "^3.1.14",
     "yargs": "^12.0.2"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
     "semantic-ui": "^2.4.2",
     "whatwg-fetch": "^3.0.0"
   }
