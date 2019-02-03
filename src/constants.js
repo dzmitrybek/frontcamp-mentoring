@@ -15,5 +15,11 @@ export const CONSTANTS = {
     ERROR_TEXT: 'Data Loading Error',
     get MY_NEWS_URL() {
         return `${this.BASE_URL}/api/my-news`;
+    },
+    get LOGIN_URL() {
+        return `${this.BASE_URL}/api/login`;
+    },
+    get REGISTRATION_URL() {
+        return `${this.BASE_URL}/api/registration`;
     }
 }

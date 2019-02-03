@@ -18,6 +18,33 @@ export default class AppModel {
         return data;
     }
 
+    async login(userData) {
+        const response = await fetch(CONSTANTS.LOGIN_URL, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+          });
+        const data = await response.json();
+        return data;
+    }
+
+    async registration(userData) {
+        const response = await fetch(CONSTANTS.REGISTRATION_URL, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+          });
+          const data = await response.json();
+          debugger
+        return data;
+    }
+
     async sendNewNewsItem(newsItem) {
         newsItem.source = { name: 'Own News' };
         newsItem.publishedAt = new Date();

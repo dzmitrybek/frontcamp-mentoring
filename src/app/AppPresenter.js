@@ -8,8 +8,10 @@ export default class AppPresenter {
         this.view.onSearchNews((query) => this.loadMainPage(query));
         this.view.onRefreshNews(() => this.loadMainPage());
         this.view.onAddNews(() => this.loadEditPage({}, true));
-        this.view.onMyNewsPage(() => this.loadMyNewsPage());
+        this.view.onUserPageBtn(() => this.loadUserPage());
         this.view.onMainPage(() => this.loadMainPage());
+        this.view.onSignInPageBtn(() => this.loadLoginPage());
+        this.view.onSignOutBtn(() => this.loadMainPage());
     }
 
     async loadMainPage(query) {
@@ -32,7 +34,18 @@ export default class AppPresenter {
         }
     }
 
-    async loadMyNewsPage() {
+    loadLoginPage() {
+        this.clearPage();
+        this.view.renderLoginForm();
+        this.view.onSignInBtn((loginData) => {
+            this.model.login(loginData);
+        });
+        this.view.onRegistrationBtn((loginData) => {
+            this.model.registration(loginData);
+        });
+    }
+
+    async loadUserPage() {
         this.view.manageLoader(true);
         try {
             const data = await this.model.getMyNews() || [];
@@ -74,5 +87,11 @@ export default class AppPresenter {
             this.loadMyNewsPage();
         });
 
+    }
+
+    clearPage() {
+        this.view.toggleSearchBar(false);
+        this.view.toogleAddBtn(false);
+        this.view.renderHeader('');
     }
 }
