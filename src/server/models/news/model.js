@@ -3,11 +3,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const newsSchema = new Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        auto: true,
-    },
     title: String,
     description: String,
     urlToImage: String,

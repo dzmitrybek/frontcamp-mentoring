@@ -252,9 +252,7 @@ export default class AppView {
     }
 
     onAddNews(callback) {
-        this.addNewsBtn.addEventListener('click', () => {
-            callback();
-        });
+        this.addNewsBtn.addEventListener('click', callback);
     }
 
     onEditNewsItem(callback) {
@@ -274,26 +272,18 @@ export default class AppView {
     }
 
     onUserPageBtn(callback) {
-        this.userPageBtn.addEventListener('click', () => {
-            callback();
-        });
+        this.userPageBtn.addEventListener('click', callback);
     }
 
     onSignInPageBtn(callback) {
-        this.signInPageBtn.addEventListener('click', () => {
-            callback();
-        });
+        this.signInPageBtn.addEventListener('click', callback);
     }
 
     onSignOutBtn(callback) {
-        this.signOutBtn.addEventListener('click', () => {
-            callback();
-        });
+        this.signOutBtn.addEventListener('click', callback);
     }
 
     onMainPage(callback) {
-        this.mainPageBtn.addEventListener('click', () => {
-            callback();
-        });
+        this.mainPageBtn.addEventListener('click', callback);
     }
 }

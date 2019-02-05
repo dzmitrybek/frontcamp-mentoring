@@ -39,20 +39,24 @@ export default class AppPresenter {
     loadLoginPage() {
         this.clearPage();
         this.view.renderLoginForm();
-        this.view.onSignInBtn(async (loginData) => {
-            try {
-                const userName = await this.model.login(loginData);
-                this.view.toggleUserBtn(true, userName);
-                this.loadUserPage();
-                this.view.switchSignBtns(false);
-                this.view.toggle(false);
-            } catch(err) {
-                this.view.renderAuthError(err.message);
-            }
+        this.view.onSignInBtn((loginData) => {
+            this.auth(this.model.login, loginData);
         });
         this.view.onRegistrationBtn((loginData) => {
-            this.model.registration(loginData);
+            this.auth(this.model.registration, loginData);
         });
+    }
+
+    async auth(authMethod, authData){
+        try {
+            const userName = await authMethod(authData);
+            this.view.toggleUserBtn(true, userName);
+            this.loadUserPage();
+            this.view.switchSignBtns(false);
+            this.view.toggle(false);
+        } catch(err) {
+            this.view.renderAuthError(err.message);
+        }
     }
 
     async logout() {

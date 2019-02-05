@@ -26,8 +26,8 @@ export default class AppModel {
         const response = await fetch(CONSTANTS.LOGIN_URL, {
             method: 'POST',
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(userData)
         });
@@ -35,7 +35,7 @@ export default class AppModel {
         if (response.status === CONSTANTS.HTTP_STATUSES.UNAUTHORIZED) {
             throw new Error('Incorrect username or password.');
         }
-
+        
         const data = await response.json();
         return data.userName;
     }
@@ -48,13 +48,19 @@ export default class AppModel {
         const response = await fetch(CONSTANTS.REGISTRATION_URL, {
             method: 'POST',
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(userData)
-          });
-          const data = await response.json();
-        return data;
+        });
+
+        const data = await response.json();
+
+        if (response.status !== CONSTANTS.HTTP_STATUSES.OK) {
+            throw new Error(data.errorMessage);
+        }
+
+        return data.userName;
     }
 
     async sendNewNewsItem(newsItem) {
@@ -65,12 +71,12 @@ export default class AppModel {
         const response = await fetch(CONSTANTS.MY_NEWS_URL, {
             method: 'POST',
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(newsItem)
-          });
-        
+        });
+
         const data = await response.json();
         return data;
     }
@@ -81,15 +87,15 @@ export default class AppModel {
         item._id = item.id;
         delete item.id;
 
-        const response = await fetch(CONSTANTS.MY_NEWS_URL, {
+        const response = await fetch(`${CONSTANTS.MY_NEWS_URL}/${item._id}`, {
             method: 'PUT',
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(item)
-          });
-        
+        });
+
         const data = await response.json();
         return data;
     }
@@ -97,8 +103,8 @@ export default class AppModel {
     async deleteNewsItem(id) {
         const response = await fetch(`${CONSTANTS.MY_NEWS_URL}/${id}`, {
             method: 'DELETE'
-          });
-        
+        });
+
         const data = await response.json();
         return data;
     }

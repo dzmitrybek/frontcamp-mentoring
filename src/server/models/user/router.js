@@ -1,12 +1,12 @@
 const router = require('express').Router();
-const User = require('./model');
+const userFacade = require('./model');
 
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 
 passport.use(new Strategy(
     function(username, password, done) {
-        User.findOne({ username })
+        userFacade.findOne({ username })
             .then((user) => {
                 if (!user || password !== user.password) {
                     return done(null, false);
@@ -21,7 +21,7 @@ passport.serializeUser(function(user, done) {
 });
     
 passport.deserializeUser(function(id, done) {
-    User.findById(id)
+    userFacade.findById(id)
         .then((user) => {
             done(null, user)
         })
@@ -43,20 +43,20 @@ router.route('/api/logout')
     });
 
 router.route('/api/registration')
-    .post(async (req, res, next) => {
-        User.findOne({ username: req.body.username })
+    .post((req, res, next) => {
+        userFacade.findOne({ username: req.body.username })
             .then((user) => {
                 if(user) {
                     throw new Error('User with this login already exists');
                 }
-                return new User(req.body).save();
+                return userFacade.create(req.body);
             })
             .then((user) => {
                 req.login(user, (err) => {
                     if(err) {
                         throw new Error('Auth Error');
                     }
-                    res.sendStatus(200);
+                    res.status(200).json({userName: req.user.username});
                 });
             })
             .catch(next);
