@@ -23,18 +23,18 @@ router.route('/api/my-news/:id')
     });
 
 router.route('/api/my-news')
-    .post((req, res, next) => {
-        const newsData = req.body;
-        newsData.userId = req.user._id;
-        newsFacade.create(newsData)
-            .then((data) => res.json(data))
-            .catch(next);
-    })
     .get((req, res, next) => {
         newsFacade.find({userId: req.user._id})
             .then((data) => {
                 res.json(data)
             })
+            .catch(next);
+    })
+    .post((req, res, next) => {
+        const newsData = req.body;
+        newsData.userId = req.user._id;
+        newsFacade.create(newsData)
+            .then((data) => res.json(data))
             .catch(next);
     })
 

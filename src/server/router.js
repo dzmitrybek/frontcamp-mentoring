@@ -1,7 +1,9 @@
 const router = require('express').Router();
+const userRouter = require('./models/user/router');
+const newsRouter = require('./models/news/router')
 
 router.use('/',
-    require('./models/user/router'),
+    userRouter,
     (req, res, next) => {
         if (req.isAuthenticated()) {
             next();
@@ -10,6 +12,6 @@ router.use('/',
         }
 });
 
-router.use('/', require('./models/news/router'));
+router.use('/', newsRouter);
 
 module.exports = router;
