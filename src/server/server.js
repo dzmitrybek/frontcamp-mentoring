@@ -12,7 +12,9 @@ const config = require('./config');
 
 mongoose.Promise = Promise;
 
-mongoose.connect(config.mongodb.connectionUrl, { useNewUrlParser: true });
+mongoose.connect(config.mongodb.connectionUrl, { useNewUrlParser: true })
+    .then(() => console.log('successful database connection'))
+    .catch((err) => console.error('connection error', err));
 
 app.use(morgan('dev'));
 
