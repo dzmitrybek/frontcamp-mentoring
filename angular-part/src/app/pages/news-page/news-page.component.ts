@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NewsService } from '@app/core/services/news.service';
+import { NewsModel } from '@app/core/models/news.model';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-news-page',
@@ -6,10 +9,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./news-page.component.scss']
 })
 export class NewsPageComponent implements OnInit {
+  public news: NewsModel[] = [];
+  public pageLimit = 18;
+  public pageCounter = 1;
 
-  constructor() { }
+  constructor(
+    private newsService: NewsService,
+  ) { }
 
-  ngOnInit() {
+  public ngOnInit() {
+    this.loadNews();
+  }
+
+  public loadNews() {
+    this.newsService.getToNews(this.pageLimit, this.pageCounter++)
+      .pipe(first())
+      .subscribe((data) => {
+        this.news = [...this.news, ...data];
+      });
   }
 
 }

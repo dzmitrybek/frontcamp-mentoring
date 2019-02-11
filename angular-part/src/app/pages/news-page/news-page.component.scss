@@ -1,0 +1,14 @@
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.news-card-item {
+    margin: 32px;
+}
+
+.load-btn {
+    width: 100%;
+    text-transform: uppercase;
+}

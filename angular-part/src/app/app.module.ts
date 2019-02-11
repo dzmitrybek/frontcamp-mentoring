@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from '@app/core/core.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { NewsPageModule } from '@app/pages/news-page/news-page.module';
-import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,6 +16,7 @@ import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
 
     CoreModule,
     SharedModule,

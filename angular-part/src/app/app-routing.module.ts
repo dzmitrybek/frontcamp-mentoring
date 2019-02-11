@@ -4,7 +4,7 @@ import { NewsPageComponent } from '@app/pages/news-page/news-page.component';
 
 const routes: Routes = [
   { path: 'news', component: NewsPageComponent},
-  { path: '**', redirectTo: '/', pathMatch: 'full' }
+  { path: '**', redirectTo: 'news', pathMatch: 'full' }
 ];
 
 @NgModule({

@@ -1,8 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
-// @import '~@nebular/theme/styles/theming';
-// @import '~@nebular/theme/styles/themes/_default.scss';
-// @import '~@nebular/theme/styles/globals.a';
+#app a {
+    color: rgba(102,110,128,.87);
+    outline-color: rgba(32, 35, 41, 0.87);
+}
 
-body {
-    // background: red;
+#app a:hover {
+    color: rgba(62, 68, 80, 0.87);
+}
+
+#app button {
+    background: rgba(102,110,128,.87);
+    outline-color: rgba(32, 35, 41, 0.87);
+}
+
+#app button:hover {
+    background: rgba(62, 68, 80, 0.87);
+    cursor: pointer;
 }

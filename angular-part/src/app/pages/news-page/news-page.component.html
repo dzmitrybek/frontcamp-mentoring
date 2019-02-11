@@ -1,3 +1,9 @@
-<p>
-  news-page works!
-</p>
+<div class="content">
+  <app-news-card
+    *ngFor="let item of news"
+    [item]="item"
+    class="news-card-item">
+  </app-news-card>
+</div>
+
+<button nbButton status="primary" class="load-btn" (click)="loadNews()">Load more</button>

@@ -1,6 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
+import {
+  NbLayoutModule,
+  NbThemeModule,
+  NbCardModule,
+  NbButtonModule,
+  NbSpinnerModule
+} from '@nebular/theme';
 
 @NgModule({
   declarations: [],
@@ -10,6 +16,8 @@ import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
   ],
   exports: [
     NbLayoutModule,
+    NbCardModule,
+    NbSpinnerModule
   ]
 })
 export class UiKitModule { }
