@@ -8,8 +8,12 @@ export default class AppPresenter {
         this.view.onSearchNews((query) => this.loadMainPage(query));
         this.view.onRefreshNews(() => this.loadMainPage());
         this.view.onAddNews(() => this.loadEditPage({}, true));
-        this.view.onMyNewsPage(() => this.loadMyNewsPage());
+        this.view.onUserPageBtn(() => this.loadUserPage());
         this.view.onMainPage(() => this.loadMainPage());
+        this.view.onSignInPageBtn(() => this.loadLoginPage());
+        this.view.onSignOutBtn(() => {
+            this.logout();
+        });
     }
 
     async loadMainPage(query) {
@@ -17,7 +21,7 @@ export default class AppPresenter {
         try {
             const data = await this.model.getNews(query) || [];
             this.view.toggleSearchBar(true);
-            this.view.toogleAddBtn(false);
+            this.view.toggleAddBtn(false);
             this.view.renderNewsHeader();
             if (data.length) {
                 this.view.renderNews(data);
@@ -32,12 +36,42 @@ export default class AppPresenter {
         }
     }
 
-    async loadMyNewsPage() {
+    loadLoginPage() {
+        this.clearPage();
+        this.view.renderLoginForm();
+        this.view.onSignInBtn((loginData) => {
+            this.auth(this.model.login, loginData);
+        });
+        this.view.onRegistrationBtn((loginData) => {
+            this.auth(this.model.registration, loginData);
+        });
+    }
+
+    async auth(authMethod, authData){
+        try {
+            const userName = await authMethod(authData);
+            this.view.toggleUserBtn(true, userName);
+            this.loadUserPage();
+            this.view.switchSignBtns(false);
+            this.view.toggle(false);
+        } catch(err) {
+            this.view.renderAuthError(err.message);
+        }
+    }
+
+    async logout() {
+        await this.model.logout();
+        this.view.switchSignBtns(true);
+        this.view.toggleUserBtn(false);
+        this.loadMainPage();
+    }
+
+    async loadUserPage() {
         this.view.manageLoader(true);
         try {
             const data = await this.model.getMyNews() || [];
             this.view.toggleSearchBar(false);
-            this.view.toogleAddBtn(true);
+            this.view.toggleAddBtn(true);
             this.view.renderHeader('My News:');
 
             if (data.length) {
@@ -48,7 +82,7 @@ export default class AppPresenter {
                 });
                 this.view.onDeleteItem(async (id) => {
                     await this.model.deleteNewsItem(id);
-                    this.loadMyNewsPage();
+                    this.loadUserPage();
                 });
             } else {
                 this.view.renderEmptyResult();
@@ -62,7 +96,7 @@ export default class AppPresenter {
     }
 
     loadEditPage(item, isAdding) {
-        this.view.toogleAddBtn(false);
+        this.view.toggleAddBtn(false);
         this.view.renderHeader(isAdding ? 'Add News:' : 'Edit News');
         this.view.renderEditForm(item);
         this.view.onSubmitEditForm(async (formData) => {
@@ -71,8 +105,14 @@ export default class AppPresenter {
             } else {
                 await this.model.updateNewsItem(formData);
             }
-            this.loadMyNewsPage();
+            this.loadUserPage();
         });
 
+    }
+
+    clearPage() {
+        this.view.toggleSearchBar(false);
+        this.view.toggleAddBtn(false);
+        this.view.renderHeader('');
     }
 }

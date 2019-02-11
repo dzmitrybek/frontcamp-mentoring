@@ -11,14 +11,16 @@ export default class AppView {
         this.refreshBtn = document.querySelector('#refresh-btn');
         this.addNewsBtn = document.querySelector('#add-news-btn');
 
-        this.myNewsPageBtn = document.querySelector('#my-news-page-btn');
+        this.userPageBtn = document.querySelector('#user-page-btn');
+        this.signInPageBtn = document.querySelector('#sign-in-page-btn');
+        this.signOutBtn = document.querySelector('#sign-out-btn');
         this.mainPageBtn = document.querySelector('#main-page-btn');
 
-        this.newsHeader = document.querySelector('.news-header');
+        this.signInBtn = null;
+        this.registrationBtn = null;
 
-        this.editModeTemplate = `
-            
-        `;
+        this.newsHeader = document.querySelector('.news-header');
+        this.loginForm = null;
     }
 
     renderNews(news, isEditMode) {
@@ -98,10 +100,38 @@ export default class AppView {
         this.mainContentArea.innerHTML = editNewsTemplate;
     };
 
+    renderLoginForm() {
+        const editNewsTemplate = `
+            <form class="ui form" id="login-form">
+                <div class="field">
+                    <label>Login</label>
+                    <input type="text" name="username" placeholder="Login">
+                </div>
+                <div class="field">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Password">
+                </div>
+                <div class="ui error message" id="login-form-error-block">
+                </div>
+                <button class="ui button" type="button" id="sign-in-btn">Sign In</button>
+                <button class="ui button" type="button" id="registration-btn">Registration</button>
+            </form>`;
+        this.mainContentArea.innerHTML = editNewsTemplate;
+        this.loginForm = document.querySelector('#login-form');
+        this.signInBtn = document.querySelector('#sign-in-btn');
+        this.registrationBtn = document.querySelector('#registration-btn');
+    };
+
     renderNewsHeader() {
         this.newsHeader.innerText = this.searchField.value
             ? `"${this.searchField.value.toUpperCase()}" search results:`
             : 'Top News:';
+    }
+
+    renderAuthError(errorText) {
+        const errorBlock = document.querySelector('#login-form-error-block');
+        errorBlock.innerText = errorText;
+        this.loginForm.classList.add('error')
     }
 
     renderHeader(headerName) {
@@ -121,8 +151,18 @@ export default class AppView {
             <h2 class='error message'>${message}</h2>`;
     }
 
-    toogleAddBtn(isDisplay) {
+    toggleAddBtn(isDisplay) {
         this.toggleElemDisplaying(this.addNewsBtn, isDisplay);
+    }
+
+    toggleUserBtn(isDisplay, userName) {
+        this.toggleElemDisplaying(this.userPageBtn, isDisplay);
+        this.userPageBtn.innerText = userName;
+    }
+
+    switchSignBtns(isSignIn) {
+        this.toggleElemDisplaying(this.signOutBtn, !isSignIn);
+        this.toggleElemDisplaying(this.signInPageBtn, isSignIn);
     }
 
     toggleSearchBar(isDisplay) {
@@ -179,7 +219,7 @@ export default class AppView {
         editForm.addEventListener('submit', (event) => {
             event.preventDefault()
             const formData = {
-                id: +editForm.getAttribute('data-id'),
+                id: editForm.getAttribute('data-id'),
                 title: editForm['title'].value,
                 description: editForm['description'].value,
                 urlToImage: editForm['urlToImage'].value,
@@ -189,16 +229,36 @@ export default class AppView {
         });
     }
 
-    onAddNews(callback) {
-        this.addNewsBtn.addEventListener('click', () => {
-            callback();
+    onSignInBtn(callback) {
+        this.signInBtn.addEventListener('click', (event) => {
+            const formData = {
+                username: this.loginForm['username'].value,
+                password: this.loginForm['password'].value,
+
+            };
+            callback(formData);
         });
+    }
+
+    onRegistrationBtn(callback) {
+        this.registrationBtn.addEventListener('click', (event) => {
+            const formData = {
+                username: this.loginForm['username'].value,
+                password: this.loginForm['password'].value,
+
+            };
+            callback(formData);
+        });
+    }
+
+    onAddNews(callback) {
+        this.addNewsBtn.addEventListener('click', callback);
     }
 
     onEditNewsItem(callback) {
         this.mainContentArea.addEventListener('click', (event) => {
             if (event.target.getAttribute('data-label') === 'edit-btn') {
-                callback(+event.target.getAttribute('data-id'));
+                callback(event.target.getAttribute('data-id'));
             }
         });
     }
@@ -206,20 +266,24 @@ export default class AppView {
     onDeleteItem(callback) {
         this.mainContentArea.addEventListener('click', (event) => {
             if (event.target.getAttribute('data-label') === 'delete-btn') {
-                callback(+event.target.getAttribute('data-id'));
+                callback(event.target.getAttribute('data-id'));
             }
         });
     }
 
-    onMyNewsPage(callback) {
-        this.myNewsPageBtn.addEventListener('click', () => {
-            callback();
-        });
+    onUserPageBtn(callback) {
+        this.userPageBtn.addEventListener('click', callback);
+    }
+
+    onSignInPageBtn(callback) {
+        this.signInPageBtn.addEventListener('click', callback);
+    }
+
+    onSignOutBtn(callback) {
+        this.signOutBtn.addEventListener('click', callback);
     }
 
     onMainPage(callback) {
-        this.mainPageBtn.addEventListener('click', () => {
-            callback();
-        });
+        this.mainPageBtn.addEventListener('click', callback);
     }
 }
