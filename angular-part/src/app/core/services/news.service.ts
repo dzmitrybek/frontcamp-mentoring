@@ -25,6 +25,16 @@ export class NewsService {
       );
   }
 
+  public searchNews(searchText): Observable<NewsModel[]> {
+    return this.http.get(CONFIG.SEARCH_NEWS_URL,
+        { params: { q: searchText } })
+      .pipe(
+        map((data: any) => {
+          return data.articles ? data.articles.map(this.mapToNewsItem) : [];
+        })
+      );
+  }
+
   private mapToNewsItem(item): NewsModel {
     return {
       source: item.source ? {

@@ -5,7 +5,9 @@ import {
   NbThemeModule,
   NbCardModule,
   NbButtonModule,
-  NbSpinnerModule
+  NbSpinnerModule,
+  NbInputModule,
+  NbTabsetModule
 } from '@nebular/theme';
 
 @NgModule({
@@ -17,7 +19,10 @@ import {
   exports: [
     NbLayoutModule,
     NbCardModule,
-    NbSpinnerModule
+    NbSpinnerModule,
+    NbInputModule,
+    NbButtonModule,
+    NbTabsetModule
   ]
 })
 export class UiKitModule { }

@@ -1,18 +1,33 @@
 #app a {
     color: rgba(102,110,128,.87);
-    outline-color: rgba(32, 35, 41, 0.87);
+    outline: none;
 }
 
-#app a:hover {
+#app a:hover,a:focus {
     color: rgba(62, 68, 80, 0.87);
 }
 
 #app button {
     background: rgba(102,110,128,.87);
-    outline-color: rgba(32, 35, 41, 0.87);
+    outline:none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i {
+        font-size: 18px;
+        margin: 0 4px;
+    }
+}
+#app button:focus {
+    border: 2px solid rgba(62, 68, 80, 0.87);
 }
 
 #app button:hover {
     background: rgba(62, 68, 80, 0.87);
     cursor: pointer;
+}
+
+#app input:focus {
+    border-color: #40dc7e
 }

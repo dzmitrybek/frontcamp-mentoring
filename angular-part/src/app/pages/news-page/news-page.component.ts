@@ -29,4 +29,15 @@ export class NewsPageComponent implements OnInit {
       });
   }
 
+  public search(value) {
+    if (value) {
+      this.newsService.searchNews(value)
+        .pipe(first())
+        .subscribe((data) => this.news = data);
+    } else {
+      this.pageCounter = 1;
+      this.loadNews();
+    }
+  }
+
 }
