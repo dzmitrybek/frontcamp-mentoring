@@ -8,10 +8,11 @@ import { CoreModule } from '@app/core/core.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { NewsPageModule } from '@app/pages/news-page/news-page.module';
 import { HttpClientModule } from '@angular/common/http';
+import { EditPageModule } from '@app/pages/edit-page/edit-page.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
     SharedModule,
 
     // page modules
-    NewsPageModule
+    NewsPageModule,
+    EditPageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

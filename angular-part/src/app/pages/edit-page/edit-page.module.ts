@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NewsPageComponent } from './news-page.component';
+import { EditPageComponent } from './edit-page.component';
 import { SharedModule } from '@app/shared/shared.module';
-import { NewsCardComponent } from './components/news-card/news-card.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [
-    NewsPageComponent,
-    NewsCardComponent
-  ],
+  declarations: [EditPageComponent],
   imports: [
     CommonModule,
     SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule
-  ],
-  exports: [NewsPageComponent]
+  ]
 })
-export class NewsPageModule { }
+export class EditPageModule { }

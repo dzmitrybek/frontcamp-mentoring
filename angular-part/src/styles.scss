@@ -1,3 +1,7 @@
+#app * {
+    box-sizing: border-box;
+}
+
 #app a {
     color: rgba(102,110,128,.87);
     outline: none;
@@ -8,24 +12,27 @@
 }
 
 #app button {
-    background: rgba(102,110,128,.87);
     outline:none;
     display: flex;
     align-items: center;
     justify-content: center;
-
+    cursor: pointer;
     i {
         font-size: 18px;
         margin: 0 4px;
     }
 }
-#app button:focus {
+
+#app button.app-btn {
+    background: rgba(102,110,128,.87);
+}
+
+#app button.app-btn:focus {
     border: 2px solid rgba(62, 68, 80, 0.87);
 }
 
-#app button:hover {
+#app button.app-btn:hover {
     background: rgba(62, 68, 80, 0.87);
-    cursor: pointer;
 }
 
 #app input:focus {

@@ -7,14 +7,16 @@ import {
   NbButtonModule,
   NbSpinnerModule,
   NbInputModule,
-  NbTabsetModule
+  NbTabsetModule,
+  NbDatepickerModule
 } from '@nebular/theme';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    NbThemeModule.forRoot()
+    NbThemeModule.forRoot(),
+    NbDatepickerModule.forRoot(),
   ],
   exports: [
     NbLayoutModule,
@@ -22,7 +24,8 @@ import {
     NbSpinnerModule,
     NbInputModule,
     NbButtonModule,
-    NbTabsetModule
+    NbTabsetModule,
+    NbDatepickerModule
   ]
 })
 export class UiKitModule { }

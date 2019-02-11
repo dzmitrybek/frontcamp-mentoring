@@ -3,7 +3,7 @@
       <div class="tab-content">
         <div class="search-block">
           <input type="search" class="search-field" (keyup.enter)="search(searchInput.value)" nbInput shape="round" placeholder="Search..." #searchInput>
-          <button nbButton shape="round" (click)="search(searchInput.value)">
+          <button nbButton shape="round" (click)="search(searchInput.value)" class="app-btn">
             <i class="eva eva-search-outline"></i>
             Search
           </button>
@@ -16,18 +16,27 @@
               class="news-card-item">
             </app-news-card>
           </div>
-          <button nbButton status="primary" class="load-btn" (click)="loadNews()">Load more</button>
+          <button nbButton status="primary" class="load-btn app-btn" (click)="loadNews()">Load more</button>
         </div>
       </div>
     </nb-tab>
     <nb-tab tabTitle="My News">
         <div class="tab-content">
           <div class="search-block">
-            <button nbButton shape="round" (click)="search(searchInput.value)" class="add-btn">
+            <button nbButton shape="round" routerLink="/create" class="add-btn app-btn">
               <i class="eva eva-plus-circle-outline"></i>
               Add
             </button>
           </div>
+          <div class="content">
+              <app-news-card
+                *ngFor="let item of userNews"
+                [item]="item"
+                [editable]="true"
+                (edit)="editItem($event)"
+                class="news-card-item">
+              </app-news-card>
+            </div>
         </div>
     </nb-tab>
 </nb-tabset>
