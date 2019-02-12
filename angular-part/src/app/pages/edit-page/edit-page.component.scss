@@ -1,0 +1,35 @@
+.edit-content {
+    display: flex;
+
+    .edit-block {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        max-width: 50%;
+    }
+
+    .edit-block:first-child {
+        border-right: 1px solid #ebeef2;
+    }
+
+    .edit-block > * {
+        margin: 16px;
+    }
+
+    .edit-btns-block {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .edit-form-btn {
+        width: 120px;
+    }
+
+    .edit-form-btn:first-child {
+        margin-right: 32px;
+    }
+
+    textarea {
+        resize: none;
+    }
+}
