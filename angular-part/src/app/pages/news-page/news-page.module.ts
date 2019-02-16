@@ -10,7 +10,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
   declarations: [
     NewsPageComponent,
     NewsCardComponent,
-    SearchBarComponent
+    SearchBarComponent,
   ],
   imports: [
     CommonModule,
