@@ -6,10 +6,16 @@
     <nb-card-body>
       {{item.description}}
       <h4 class="news-source">{{item.source.name}}</h4>
-      <button *ngIf="editable" nbButton shape="round" (click)="editItem()" class="app-btn">
-        <i class="eva eva-edit-outline"></i>
-        Edit
-      </button>
+      <div *ngIf="editable" class="action-bar">
+        <button nbButton shape="round" (click)="editItem()" class="app-btn">
+          <i class="eva eva-edit-outline"></i>
+          Edit
+        </button>
+        <button nbButton shape="round" (click)="deleteItem()" class="app-btn">
+          <i class="eva eva-trash-2-outline"></i>
+          Delete
+        </button>
+      </div>
     </nb-card-body>
     <nb-card-footer class="news-card-footer">
       {{item.publishedAt | date}}

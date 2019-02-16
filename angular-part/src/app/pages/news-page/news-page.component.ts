@@ -62,4 +62,13 @@ export class NewsPageComponent implements OnInit {
     this.router.navigate(['/edit']);
   }
 
+  public deleteItem(item) {
+    this.newsService.deleteUserNews(item)
+      .subscribe(() => this.loadUserNews());
+  }
+
+  public changeTab(data) {
+    this.router.navigate([`/news/${data.route}`]);
+  }
+
 }
