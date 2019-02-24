@@ -7,5 +7,6 @@ export const CONFIG = {
     get SEARCH_NEWS_URL() {
         return `${this.NEWS_API_URL}/everything?apiKey=${this.API_KEY}`;
     },
-    NO_IMAGE_URL: '/assets/no-image-box.png'
+    NO_IMAGE_URL: '/assets/no-image-box.png',
+    MY_NEWS_URL: 'api/my-news'
 };

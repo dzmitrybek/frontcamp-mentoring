@@ -1,12 +1,8 @@
-<nb-tabset>
-    <nb-tab tabTitle="World News">
+<nb-tabset [routeParam]="'type'" (changeTab)="changeTab($event)">
+    <nb-tab tabTitle="World News" [route]="'world'">
       <div class="tab-content">
         <div class="search-block">
-          <input type="search" class="search-field" (keyup.enter)="search(searchInput.value)" nbInput shape="round" placeholder="Search..." #searchInput>
-          <button nbButton shape="round" (click)="search(searchInput.value)" class="app-btn">
-            <i class="eva eva-search-outline"></i>
-            Search
-          </button>
+            <app-search-bar (search)="search($event)"></app-search-bar>
         </div>
         <div *ngIf="news.length">
           <div class="content">
@@ -20,9 +16,10 @@
         </div>
       </div>
     </nb-tab>
-    <nb-tab tabTitle="My News">
+    <nb-tab tabTitle="My News" [route]="'my-news'">
         <div class="tab-content">
           <div class="search-block">
+            <app-search-bar (search)="localSearch($event)"></app-search-bar>
             <button nbButton shape="round" routerLink="/create" class="add-btn app-btn">
               <i class="eva eva-plus-circle-outline"></i>
               Add
@@ -30,10 +27,11 @@
           </div>
           <div class="content">
               <app-news-card
-                *ngFor="let item of userNews"
+                *ngFor="let item of userNews | textFilter:localSearchText:'title'"
                 [item]="item"
                 [editable]="true"
                 (edit)="editItem($event)"
+                (delete)="deleteItem($event)"
                 class="news-card-item">
               </app-news-card>
             </div>

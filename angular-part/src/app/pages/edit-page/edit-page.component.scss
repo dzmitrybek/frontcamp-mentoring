@@ -33,3 +33,7 @@
         resize: none;
     }
 }
+
+input.ng-touched.ng-invalid {
+    border:solid lightcoral 2px;
+}

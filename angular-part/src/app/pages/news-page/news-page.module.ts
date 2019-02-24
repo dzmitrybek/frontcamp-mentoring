@@ -4,11 +4,13 @@ import { NewsPageComponent } from './news-page.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { NewsCardComponent } from './components/news-card/news-card.component';
 import { RouterModule } from '@angular/router';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
     NewsPageComponent,
-    NewsCardComponent
+    NewsCardComponent,
+    SearchBarComponent,
   ],
   imports: [
     CommonModule,

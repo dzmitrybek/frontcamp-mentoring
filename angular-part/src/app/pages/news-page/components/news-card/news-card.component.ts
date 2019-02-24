@@ -12,6 +12,7 @@ export class NewsCardComponent implements OnInit {
   @Input() editable: false;
 
   @Output() edit: EventEmitter<NewsModel> = new EventEmitter<NewsModel>();
+  @Output() delete: EventEmitter<NewsModel> = new EventEmitter<NewsModel>();
   public noImageUrl = CONFIG.NO_IMAGE_URL;
 
   constructor() { }
@@ -20,6 +21,10 @@ export class NewsCardComponent implements OnInit {
 
   public editItem() {
     this.edit.emit(this.item);
+  }
+
+  public deleteItem() {
+    this.delete.emit(this.item);
   }
 
 }

@@ -15,6 +15,8 @@ export class NewsPageComponent implements OnInit {
   public pageLimit = 18;
   public pageCounter = 1;
 
+  public localSearchText = '';
+
   constructor(
     private newsService: NewsService,
     private router: Router,
@@ -60,6 +62,19 @@ export class NewsPageComponent implements OnInit {
   public editItem(item) {
     this.newsService.setEditableNews(item);
     this.router.navigate(['/edit']);
+  }
+
+  public deleteItem(item) {
+    this.newsService.deleteUserNews(item)
+      .subscribe(() => this.loadUserNews());
+  }
+
+  public changeTab(data) {
+    this.router.navigate([`/news/${data.route}`]);
+  }
+
+  public localSearch(text) {
+    this.localSearchText = text;
   }
 
 }

@@ -2,7 +2,7 @@
     <nb-card-header>{{isEditMode ? 'Edit News' : 'Create News'}}</nb-card-header>
     <nb-card-body class="edit-content">
       <div class="edit-block">
-        <input type="text" nbInput placeholder="Title" formControlName="title">
+        <input type="text" nbInput placeholder="Title *" formControlName="title">
         <input type="text" nbInput placeholder="Description" formControlName="description">
         <textarea nbInput shape="round" placeholder="Content" rows="7" formControlName="content"></textarea>
       </div>
@@ -10,12 +10,13 @@
         <input type="text" nbInput placeholder="Source" formControlName="source">
         <input type="text" nbInput placeholder="Image URL" formControlName="urlToImage">
         <input type="text" nbInput placeholder="Source URL" formControlName="sourceUrl">
-        <input [nbDatepicker]="datepicker" nbInput placeholder="Date" formControlName="publishedAt">
+        <input [nbDatepicker]="datepicker" nbInput placeholder="Date *" formControlName="publishedAt">
         <nb-datepicker #datepicker></nb-datepicker>
         <div class="edit-btns-block">
-            <button nbButton shape="round" class="edit-form-btn" status="success" (click)="save()">Save</button>
-            <button nbButton shape="round" class="edit-form-btn" status="warning">Cancel</button>
+            <button nbButton shape="round" class="edit-form-btn" status="success" (click)="save()" [disabled]="newsForm.invalid">Save</button>
+            <button nbButton shape="round" class="edit-form-btn" status="warning" (click)="cancel()">Cancel</button>
         </div>
       </div>
     </nb-card-body>
+    <nb-card-footer>* - required field (min length - 3 characters)</nb-card-footer>
 </nb-card>

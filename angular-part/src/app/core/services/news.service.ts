@@ -9,7 +9,6 @@ import { NewsModel } from '@app/core/models/news.model';
   providedIn: 'root'
 })
 export class NewsService {
-  private _userNews: NewsModel[] = [];
   private _editableNews: NewsModel;
 
   constructor(
@@ -27,16 +26,24 @@ export class NewsService {
   }
 
   public getUserNews(): Observable<NewsModel[]> {
-    return of(this._userNews);
+    return this.http.get((CONFIG.MY_NEWS_URL))
+      .pipe(
+        map((data: any) => {
+          return data ? data.map(this.mapToNewsItem) : [];
+        })
+      );
   }
 
   public updateUserNews(updateItem: NewsModel) {
-    const itemIndex =  this._userNews.findIndex((item) => item.id === updateItem.id);
-    this._userNews[itemIndex] = updateItem;
+    return this.http.put((`${CONFIG.MY_NEWS_URL}/${updateItem._id}`), updateItem);
   }
 
   public addUserNews(news: NewsModel) {
-    this._userNews.push(news);
+    return this.http.post((CONFIG.MY_NEWS_URL), news);
+  }
+
+  public deleteUserNews(news: NewsModel) {
+    return this.http.delete((`${CONFIG.MY_NEWS_URL}/${news._id}`));
   }
 
   public getEditableNews(): NewsModel {
@@ -57,36 +64,20 @@ export class NewsService {
       );
   }
 
-  public convertFormDataToNews(data): NewsModel {
-    return {
-      // temp id generation
-      id: +new Date(),
-      source: data.source ? {
-        id: '',
-        name: data.source
-      } : { id: '', name: ''},
-      title: data.title || '',
-      description: data.description || '',
-      url: data.sourceUrl || '',
-      urlToImage: data.imageUrl || '',
-      publishedAt: new Date(data.publishedAt),
-      content: data.content || ''
-    };
-  }
-
   private mapToNewsItem(item): NewsModel {
-    return {
-      source: item.source ? {
-        id: item.source.id,
-        name: item.source.name
-      } : {},
-      title: item.title,
-      description: item.description,
-      url: item.url,
-      urlToImage: item.urlToImage,
-      publishedAt: new Date(item.publishedAt),
-      content: item.content
-    };
+    return new NewsModel(
+      item.source ? {
+            id: item.source.id,
+            name: item.source.name
+          } : {},
+      item.title,
+      item.description,
+      item.url,
+      item.urlToImage,
+      new Date(item.publishedAt),
+      item.content,
+      item._id || null,
+    );
   }
 
 }
