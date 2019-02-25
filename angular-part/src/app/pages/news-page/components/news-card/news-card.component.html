@@ -1,11 +1,11 @@
 <nb-card size="medium" class="news-card">
-    <nb-card-header>{{item.title}}</nb-card-header>
+    <nb-card-header class="news-title">{{item?.title}}</nb-card-header>
     <nb-card-header class="news-img-wrapper">
-        <img src="{{item.urlToImage || noImageUrl}}" alt="news image" class="news-img">
+        <img src="{{item?.urlToImage || noImageUrl}}" alt="news image" class="news-img">
     </nb-card-header>
     <nb-card-body>
-      {{item.description}}
-      <h4 class="news-source">{{item.source.name}}</h4>
+      <span class="news-description">{{item?.description}}</span>
+      <h4 class="news-source">{{item?.source?.name}}</h4>
       <div *ngIf="editable" class="action-bar">
         <button nbButton shape="round" (click)="editItem()" class="app-btn">
           <i class="eva eva-edit-outline"></i>
@@ -18,7 +18,7 @@
       </div>
     </nb-card-body>
     <nb-card-footer class="news-card-footer">
-      {{item.publishedAt | date}}
-      <a href="{{item.url}}">Read More</a>
+      <span class="news-date">{{item?.publishedAt | date}}</span>
+      <a class="news-link" href="{{item?.url}}">Read More</a>
     </nb-card-footer>
 </nb-card>

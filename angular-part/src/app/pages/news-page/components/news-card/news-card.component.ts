@@ -9,7 +9,7 @@ import { CONFIG } from '@config/config';
 })
 export class NewsCardComponent implements OnInit {
   @Input() item: NewsModel;
-  @Input() editable: false;
+  @Input() editable = false;
 
   @Output() edit: EventEmitter<NewsModel> = new EventEmitter<NewsModel>();
   @Output() delete: EventEmitter<NewsModel> = new EventEmitter<NewsModel>();
